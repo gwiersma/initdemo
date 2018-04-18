@@ -21,7 +21,8 @@ spec:
             type: DirectoryOrCreate
       initContainers:
       - name: check-webapp-ready
-        image: gwiersma/busybox
+        image: busybox
+        command: ["wget", "-O", "/www/index.php", "http://10.10.10.92/index.txt"]
         volumeMounts:
           - name: "application"
             mountPath: "/www"
