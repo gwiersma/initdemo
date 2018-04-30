@@ -14,17 +14,12 @@ spec:
         app: "helloworld"
 
     spec:
-      volumes:
-        - name: "application"
-          hostPath:
-            path: /var/kube/workdir/
-            type: DirectoryOrCreate
       initContainers:
       - name: check-webapp-ready
         image: gwiersma/busybox
         volumeMounts:
-          - name: "application"
-            mountPath: "/www"
+        - name: storage01
+          mountPath: /www
       containers:
       - name: webserver
         image: "dockercloud/hello-world:latest"
@@ -32,5 +27,9 @@ spec:
         - name: http
           containerPort: 80
         volumeMounts:
-          - name: "application"
-            mountPath: "/www"
+        - name: storage01
+          mountPath: /www
+      volumes:
+      - name: storage01
+        persistentVolumeClaim:
+          claimName: storage01
