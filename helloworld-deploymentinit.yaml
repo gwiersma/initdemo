@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: "helloworld"
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
       app: "helloworld"
@@ -29,6 +29,11 @@ spec:
         volumeMounts:
         - name: storage01
           mountPath: /www
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 3
       volumes:
       - name: storage01
         persistentVolumeClaim:
