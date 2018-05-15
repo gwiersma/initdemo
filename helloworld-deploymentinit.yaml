@@ -7,12 +7,10 @@ spec:
   selector:
     matchLabels:
       app: "helloworld"
-
   template:
     metadata:
       labels:
         app: "helloworld"
-
     spec:
       initContainers:
       - name: check-webapp-ready
