@@ -9,6 +9,7 @@
 		padding: 50px;
 		font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 	}
+
 	#logo {
 		margin-bottom: 40px;
 	}
@@ -17,7 +18,7 @@
 <body>
 	<img id="logo" src="logo.png" />
 	<h1><?php echo "Hello ".($_ENV["NAME"]?$_ENV["NAME"]:"world")."!"; ?></h1>
-	<?php if($_ENV["HOSTNAME"]) {?><h3>Workload ID <?php echo $_ENV["HOSTNAME"]; ?></h3><?php } ?>
+	<?php if($_ENV["HOSTNAME"]) {?><h3>My hostname is <?php echo $_ENV["HOSTNAME"]; ?></h3><?php } ?>
 	<?php
 	$links = [];
 	foreach($_ENV as $key => $value) {
@@ -32,14 +33,22 @@
 	}
 	if($links) {
 	?>
-		<h3>Bereikbaar op</h3>
+		<h3>Links found</h3>
 		<?php
 		foreach($links as $link) {
 			?>
-			<b><?php echo $link["name"]; ?></b> Ik luister op <?php echo $link["port"]+"/"+$link["proto"]; ?> beschikbaar via de URL <?php echo $link["value"]; ?><br />
+			<b><?php echo $link["name"]; ?></b> listening in <?php echo $link["port"]+"/"+$link["proto"]; ?> available at <?php echo $link["value"]; ?><br />
 			<?php
 		}
 		?>
+	<?php
+	}
 
+	if($_ENV["DOCKERCLOUD_AUTH"]) {
+		?>
+		<h3>I have Docker Cloud API powers!</h3>
+		<?php
+	}
+	?>
 </body>
 </html>
